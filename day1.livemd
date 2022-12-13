@@ -32,18 +32,30 @@ In case the Elves get hungry and need extra snacks, they need to know which Elf 
 Find the Elf carrying the most Calories. **How many total Calories is that Elf carrying?**
 
 ```elixir
-__ENV__.file
-|> String.split("day1.livemd")
-|> List.first()
-|> Kernel.<>("day01.txt")
-|> File.read!()
-|> String.split("\n\n")
-|> Enum.map(&String.split(&1, "\n"))
-|> Enum.map(fn list ->
-  list
-  |> Enum.filter(&(&1 != ""))
-  |> Enum.map(&String.to_integer/1)
-  |> Enum.sum()
-end)
-|> Enum.max()
+sums =
+  __ENV__.file
+  |> String.split("day1.livemd")
+  |> List.first()
+  |> Kernel.<>("day01.txt")
+  |> File.read!()
+  |> String.split("\n\n")
+  |> Enum.map(&String.split(&1, "\n"))
+  |> Enum.map(fn list ->
+    list
+    |> Enum.filter(&(&1 != ""))
+    |> Enum.map(&String.to_integer/1)
+    |> Enum.sum()
+  end)
+
+part1 = sums |> Enum.max()
+```
+
+## Part2
+
+```elixir
+[a, b, c | _] =
+  sums
+  |> Enum.sort(&(&1 >= &2))
+
+a + b + c
 ```
